@@ -1,0 +1,309 @@
+created_by: IBM
+version: 3
+domain: 'BPOD order to cash: SEIN S AR Cash Application V10.0'
+document_outline: 'Step by Step Description for Cash posting for the payments made
+  by Customers via Cheques , Online payments and Bank Transfers.'
+seed_examples:
+- context: '## Step by Step Description Clearing
+    Indonesia handles CITI and BCA bank and currencies are handled in Indonesian Rupiah.
+    The mode of payment is wire transfers and cheques and promissory notes.
+    Customer makes payment for the invoice that is billed to them along with the supporting
+    documents (Payment slip and TT sheet). The due date is decided by the business
+    agreement and is configured in the system. The customer either pays the amount
+    on time i.e. exactly on due date or pay in early to avail discounts. Customer
+    also pays partial amount of the invoice due to some reasons like claims/ deductions
+    etc.
+    Once the receiving payments are interfaced, the payments need to be posted to
+    the respective customer account.
+
+    **[Journal Entry:]{.ul}**
+
+    **Note: IBM A/R Team do not need to post this journal manually. It will be automatically
+    posted by N-ERP. IBM A/R Team are not allow to do manual creation.**
+
+    **Stage 1:** Customer pays into Tristar bank account for the invoices due. The
+    transfer happens via Wire transfers or through check payments.
+
+    When Money paid into GL bank account:
+    40 A/R receivables
+    50 Bank G/L Account
+
+    **Stage 2:**
+
+    40 Bank G/L account
+    15 Customer Account
+
+    There are nine (9) scenarios attached to the customer payment:
+    1.  When customer pays exactly to the invoice amount matching.
+    2.  When customer pays partially (Partial Payment).
+    3.  When customer makes down payment (pre-payment).
+    4.  When the information regarding the payment is insufficient.
+    5.  When customer receives cash discount.
+    6.  When bank charge and rounding is involved
+    7.  AR Minus settlement.
+    8.  CDPRA.
+    9.  How to know payment flow in bank statement.'
+  questions_and_answers:
+  - question: 'What are the scenraios associated with customer payments as described
+      in SEIN S AR Cash Application '
+    answer: 'There are 9 scenarios associated with customer payments as described
+      in SEIN AR Cash Application. These are listed below.
+      1. When customer pays exactly to the invoice amount matching.
+      2. When customer pays partially (Partial Payment).
+      3. When customer makes down payment (pre-payment).
+      4. When the information regarding the payment is insufficient.
+      5. When customer receives cash discount.
+      6. When bank charge and rounding is involved
+      7. AR Minus settlement.
+      8. CDPRA.
+      9. How to know payment flow in bank statement.'
+  - question: 'What modes of payment transfer are used in clearing '
+    answer: The modes of payment used are wire transfers and cheques and promissory
+      notes
+  - question: In what situaton will the customer pay earlier than the due date
+    answer: The customer might pay earlier than due date to avail discounts
+- context: '### A/R Clearing Through Partial Payment
+    When the customer offers a payment less than the total amount in the invoices,
+    then the payment can be considered as a partial payment. It means that customer
+    needs to pay the invoices for several times. To post partial payment, customer
+    needs to have supporting documents (bank statement, payment slip, invoices and
+    confirmation letter).
+
+    Steps:
+    1.  Open GSSC -- Check Activity List -- Open SR
+    2.  Download the attachment(s), check and validate the documents. If completed,
+    then proceed with the clearing in N-ERP by clicking the ''Go'' button
+    3.  Clearing with T-codes ZFIRART0080_FF.
+    4.  Fill up the State date
+    5.  Tick the Bank with IDR currency
+    6.  Tick the payment that need to be cleared (RP 70,000,000), and click A/R Clearing
+    7.  Fill up customer code and tick ''Check here for attaching document while posting''.
+    Then choose the billing number that need to be cleared.
+    8.  Tick the chosen billing number. Since there is one invoice that need to be
+    partial (in order to clear the whole amount), IBM A/R team needs to change the
+    column ***''Part/Resid'' to P* (Do not choose R)** and input the amount. Then
+    click ''Posting''
+    9.  Click Posting, and then click ''New'' and choose ''Store Business File''.
+    Attached the supporting documents.
+    10. PIC must be aware that additional of screenshot of partial recap also need
+    to be include as supporting evidence.
+    11. For approval, first and second checker need to be inserted. First and second
+    checker depends on the PIC of the customer''s clerk (Please refer page 40). Press
+    insert then press ok.
+    11\. After process in the N-ERP has been completed, then revert to GSSC page and
+    click done until the third step. Complete the SR by sending email to the PIC.'
+  questions_and_answers:
+  - question: What is the steps to be followed for partial payment
+    answer: 'Steps to be followed for partial payment are described below:
+      1. Download the attachment(s), check and validate the documents.
+      2. Fill up the State date.
+      3. Tick the Bank with IDR currency.
+      4. Tick the payment that needs to be cleared (RP 70,000,000), and click A/R
+      Clearing.
+      5. Fill up customer code and tick ''Check here for attaching document while
+      posting''.
+      6. Choose the billing number that needs to be cleared.
+      7. Tick the chosen billing number.
+      8. Since there is one invoice that needs to be partial (in order to clear the
+      whole amount), IBM A/R team needs to change the column ''Part/Resid'' to P (Do
+      not choose R) and input the amount.
+      9. Click ''Postingthen click ''New'' and choose ''Store Business File''.
+      10. Attach the supporting documents.
+      11. For approval, first and second checker need to be inserted. First and second
+      checker depends on the PIC of the customer''s clerk. Press insert then press
+      ok.
+      12. After process in the N-ERP has been completed, then revert to GSSC page
+      and click done until the third step. Complete the SR by sending email to the
+      requester.
+      It''s important to note that the steps may vary depending on the specific system
+      and process used by your company. It''s always best to consult with your supervisor
+      or colleagues for the most up-to-date and accurate information.'
+  - question: Which t-code is used for A/R clearing through partial payment
+    answer: T-code ZFIRART0080_FF is used for A/R clearing through partial payment.
+  - question: What is meant by partial payment
+    answer: A payment can be considered partial payment when the customer offers a
+      payment less than the total amount in the invoices. Partial payment means that
+      customer needs to pay the invoices for several times.
+- context: '### CDPRA
+    CDPRA is a mass clearing system that could clear a whole lot of invoices in one
+    click. CDPRA is mainly used by KAM customer (clerk 11) as this type of customer
+    has a lot of invoices and has been registered to this system.
+    CDPRA SR and Excel creation are prepared by Subs A/R Team. IBM A/R Team only do
+    the posting according to excel given in the SR.
+    Steps:
+    1.  Open t-code ZLFIRECO0050.
+    Upload the file in the file path -- double click on the white space to insert
+    the file
+    Business Partner -- customer code, for more information click on the search button
+    beside the white box
+    Payment Date -- payment interface in the bank statement
+    Advice Number -- Identification title, use format "datemonthyear_customer name_RA".
+    If there are more than 1 payment, then put the title as RA1, RA2, etc.
+    Then press execute
+    2.  Click Template Download. Maintain excel name as ''export'' file. Click Ok.
+    Copy and paste the details from original file into ''export'' file.
+    3.  Go to File path and upload ''export'' file to the N-ERP System. Click Execute.
+    4.  When you gone to this page, then double check on the date as well as the green
+    column, make sure the total amount is the same with the bank statement. Then click
+    save
+    5.  Make sure that it is saved successfully.
+    6.  Next, go to t-code ZFIRECO0010. Fill in the partner number -- customer code.
+    Then click execute.
+    7.  Find the line that has been saved before. Then double click on the line in
+    order to settle it
+    8.  Start from check to Post, click one by one until the sign of the status change.
+    Click on check first.
+    9.  Once the status symbol change as per below, press simulate
+    10. After the status symbol change as per below, press confirm.
+    11. This pop up will appear. Fill in the correct house bank then press okay.
+    12. After the status symbol change as per below, press post.
+    13. After this symbol appear, then attach the original file
+    14. Attach the file and press okay
+    15. After file attach successfully, press income post and choose the payment and
+    click submit.
+    16. Choose the approver and click submit.
+    17. Complete the SR as usual.'
+  questions_and_answers:
+  - question: What is the TCODE used for CDPRA
+    answer: The T-code used for CDPRA is ZLFIRECO0050.
+  - question: What is CDPRA for payment clearing
+    answer: CDPRA is a mass clearing system that could clear a whole lot of invoices
+      in one click. CDPRA is mainly used by KAM customer (clerk 11) as this type of
+      customer has a lot of invoices and has been registered to this system.
+  - question: What name format should be used for the Excel file created in CDPRA.
+    answer: Use "datemonthyear_customer name_RA" as file name format for the Excel
+      file created in CDPRA. If there are more than 1 payment, then put the title
+      as RA1, RA2, etc.
+- context: 'Suspense Posting
+    Payment is considered as suspense payment when there is not enough information
+    to recognize the customer and invoices to be cleared. Sometimes it is due to lack
+    of supporting documents as well.
+
+    ***Suspense Account has to be cleared within 30 days of posting date***
+
+    #### Incoming Bank to Suspense Account
+
+    Steps:
+    1.  Assume that A/R receives payment of IDR 18,599,995.00. There is no information
+    whatsoever regarding this payment. Therefore IBM A/R team will put it under suspense
+    account.
+    2.  Open GSSC -- Check Activity List -- Open SR
+    3.  Download the attachment(s), check and validate the documents.
+    > *Note: Document for Suspense posting consists of Bank Statement only.*
+    4.  Open T-codes ZFIRART0080_FF.
+    5.  Fill up the company code, business area, state date (bank statement release
+    date), and house bank (CITI Bank = CITI1, BCA = Cena1), tick only not posted,
+    and click ok.
+    6.  Tick the payment, and then choose Sus. Receipt
+    7.  Then the text will be filled up automatically, do not change anything. However,
+    if there are some critical information extracted from bank statement, put it in
+    this ''Text'' area.
+    8.  Click ''New'' and choose ''Store Business File''. Attached the supporting
+    documents such as: Screenshot of Bank statement or Full Bank Statement (payment
+    date). Click Ok.
+    9.  For approval, first and second checkers need to be inserted. Both checkers
+    are always **Mirawati (Approval)** and **Herlin Triswati (Approval)** for Suspense
+    Posting.
+    > Click Submit.
+    10. After process in the N-ERP has been completed, then revert to GSSC page and
+    click done until the third step. Complete the SR by sending email to the PIC.'
+  questions_and_answers:
+  - question: What is Suspense Posting
+    answer: Suspense Posting means payment is considered as suspense payment when
+      there is not enough information to recognize the customer and invoices to be
+      cleared
+  - question: Within how many days does that Suspense account need to be cleared
+    answer: According to the provided documentation, a suspense account must be cleared
+      within 30 days of the posting date.
+  - question: What is the process to handle incoming suspense payments
+    answer: 'Following are the steps to handle incoming suspense payments:
+      1.  Open GSSC -- Check Activity List -- Open SR
+      2.  Download the attachment(s), check and validate the documents.
+      3.  Open T-codes ZFIRART0080_FF.
+      4.  Fill up the company code, business area, state date (bank statement release
+      date), and house bank (CITI Bank = CITI1, BCA = Cena1), tick only not posted,
+      and click ok.
+      5.  Tick the payment, and then choose Sus. Receipt
+      6.  Then the text will be filled up automatically, do not change anything. However,
+      if there are some critical information extracted from bank statement, put it
+      in this ''Text'' area.
+      7.  Click ''New'' and choose ''Store Business File''. Attached the supporting
+      documents such as: Screenshot of Bank statement or Full Bank Statement (payment
+      date). Click Ok.
+      8.  For approval, first and second checkers need to be inserted. Click Submit.
+      9. After process in the N-ERP has been completed, then revert to GSSC page and
+      click done until the third step. Complete the SR by sending email to the PIC.'
+- context: "### A/R Clearing by using G/L Account\n\nThere are some cases where the\
+    \ total payment is not match with the total invoice or there is a gap amount found\
+    \ during clearing the payment. If these cases found, IBM A/R Team could either\
+    \ to round off the small amounts or imposed the bank charge on the customer.\n\
+    \na)  Rounding off\n\nIf there is a gap difference while clearing, and the value\
+    \ is less than RP 1,000, IBM A/R Team could round off the payment using G/L account\
+    \ as follows:\n\n  **G/L Code**   **Type of rounding**   **Function**\n  --------------\
+    \ ---------------------- ----------------------------------\n  56310169      \
+    \ Misc Inc-Otr           To round off excessive amount\n  58330169       Misc\
+    \ Exp-Otr           To round off insufficient amount\n\n**Note\\*: If the gap\
+    \ difference is larger than RP 1,000, IBM A/R Team are advice to reach to Subs\
+    \ A/R Team as those difference could be because of bank charge.**\n\nSteps:\n\n\
+    1.  Fill all the details as shown in the previous settlement (Input Sold to code,\
+    \ Document Number, and Cash Discount). If IBM A/R Team found smaller amounts of\
+    \ gap, then IBM A/R Team can rounding off the gap found\n\n2.  Click 'Select Acc'.\
+    \ Another pop-up will appear. Fill G/L Code either by using 56310169 Misc Inc-Otr\
+    \ or 58330169 Misc Exp-Otr, depends whether the gap is positive or negative. In\
+    \ this case, the gap amount is negative, therefore, G/L Code 56310169 Misc Exp-Otr\
+    \ will be used to rounding off the payment. Fill 'Cost Center' according to details\
+    \ given in the SR Input. Normally the cost center is follow the accounting clerk.\
+    \ Input the gap amount. Then, click 'Add Account'.\n\n3.  The G/L account that\
+    \ has been input will appear as shown below.\n\n4.  Once amount is balance, attach\
+    \ related supporting documents and posting the settlement, input the respective\
+    \ approval path and submit as usual.\n\n```{=html}\n<!-- -->\n```\nb)  Bank Charge\n\
+    \nAt some cases, the bank charge imposed on customers and normally it was stated\
+    \ in the remittance or\n\nAmong the bank charge that has been encountered before\
+    \ are including **1,100, 2,500, 2,900, 6,500, 10,000, 15,000, 25,000, and 30,000.**\
+    \ However, before clearing the settlement, IBM A/R Team should reach and received\
+    \ the confirmation from Sub A/R Team to avoid mistake in clearing the payment.\n\
+    \nSteps:\n\n1.  Fill all the details as shown in the previous settlement (Input\
+    \ Sold to code and Document Number).\n\n2.  Click 'Select Acc'. Another pop-up\
+    \ will appear. Fill G/L Code by using 53751103 Commis&Svc Fee-Giro. Fill 'Cost\
+    \ Center' according to details given in the SR Input. Normally the cost center\
+    \ is follow the accounting clerk. Input the gap amount. Then, click 'Add Account'.\n\
+    \n3.  The G/L account that has been input will appear as shown below.\n\n4.  Once\
+    \ amount is balance, attach related supporting documents and posting the settlement,\
+    \ input the respective approval path and submit as usual."
+  questions_and_answers:
+  - question: What are the GL codes used for rounding off and when value is less than
+      RP 1000. Describe in a tabular format.
+    answer: "Based on the provided context, the GL codes used for rounding off are\
+      \ provided in the table below.\n\n**G/L Code**   **Type of rounding**   **Function**\n\
+      \  -------------- ---------------------- ----------------------------------\n\
+      \  56310169       Misc Inc-Otr           To round off excessive amount\n  58330169\
+      \       Misc Exp-Otr           To round off insufficient amount\n\nThese GL\
+      \ codes are used when the value is less than RP 1000."
+  - question: What are the steps for rounding off the gap difference in A/R Clearing
+      by using G/L Account
+    answer: "Following are the steps for rounding off the gap differnce in A/R clearing\
+      \ by using G/L Account:\n\n1.  Fill all the details like Input Sold to code,\
+      \ Document Number, and Cash Discount. \n2.  Click 'Select Acc'. Another pop-up\
+      \ will appear. Fill G/L Code either by using 56310169 Misc Inc-Otr for positive\
+      \ gap or 58330169 Misc Exp-Otr for negative gap. Fill 'Cost Center' according\
+      \ to details given in the SR Input. Input the gap amount. Then, click 'Add Account'.\n\
+      3.  The G/L account that has been input will appear. \n4.  Once the amount is\
+      \ balanced, attach related supporting documents and post the settlement, input\
+      \ the respective approval path and submit as usual."
+  - question: How are bank charges setted in A/R Clearing using G/A Account.
+    answer: 'Following are the steps to settle bank charges in A/R clearing using
+      G/A Account.
+      1.  Fill all the details as shown in the previous settlement (Input Sold to
+      code and Document Number).
+      2.  Click ''Select Acc''. Another pop-up will appear. Fill G/L Code by using
+      53751103 Commis&Svc Fee-Giro. Fill ''Cost Center'' according to details given
+      in the SR Input. Normally the cost center is follow the accounting clerk. Input
+      the gap amount. Then, click ''Add Account''
+      3.  The G/L account that has been input will appear.
+      4.  Once amount is balanced, attach related supporting documents and posting
+      the settlement, input the respective approval path and submit as usual'
+document:
+  commit: 1e8f4ba
+  patterns:
+  - SEIN_S_AR_Cash_Application_V10.0.md
+  repo: git@github.ibm.com:InstructLab-BPOD-Test/knowledge-bpod-docs.git
